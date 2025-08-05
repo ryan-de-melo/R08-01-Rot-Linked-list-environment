@@ -19,32 +19,60 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int size = 0;
+		if (!isEmpty()) {
+			size = 1 + next.size();
+		}
+
+		return size;
 	}
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+
+		if (!isEmpty()) {
+			if (data.equals(element)) {
+				result = data;
+			} else {
+				result = next.search(element);
+			}
+		}
+
+		return result;
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (element != null) {
+			if (isEmpty()) {
+				data = element;
+				next = new RecursiveSingleLinkedListImpl<T>();
+			} else {
+				next.insert(element);
+			}
+		}
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (!isEmpty()) {
+			if (data.equals(element)) {
+				data = next.data;
+				next = next.next;
+			} else {
+				next.remove(element);
+			}
+		}
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) new Object[size()];
+		putInArray(array, this, 0);
+
+		return array;
 	}
 
 	public T getData() {
@@ -63,4 +91,10 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		this.next = next;
 	}
 
+	private void putInArray(T[] array, RecursiveSingleLinkedListImpl<T> node, int index) {
+		if (node != null && !node.isEmpty()) {
+			array[index] = node.getData();
+			putInArray(array, node.next, ++index);
+		}
+	}
 }

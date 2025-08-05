@@ -44,17 +44,19 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void insert(T element) {
-		if (head.isNIL()) {
-			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<T>(element, head);
-			head = newHead;
-		} else {
-			SingleLinkedListNode<T> auxHead = head;
-
-			while (!auxHead.next.isNIL()) {
-				auxHead = auxHead.next;
+		if (element != null) {
+			if (head.isNIL()) {
+				SingleLinkedListNode<T> newHead = new SingleLinkedListNode<T>(element, head);
+				head = newHead;
+			} else {
+				SingleLinkedListNode<T> auxHead = head;
+	
+				while (!auxHead.next.isNIL()) {
+					auxHead = auxHead.next;
+				}
+				auxHead.next.data = element;
+				auxHead.next.next = new SingleLinkedListNode<>();
 			}
-			auxHead.next.data = element;
-			auxHead.next.next = new SingleLinkedListNode<>();
 		}
 
 	}
@@ -78,6 +80,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T[] toArray() {
+		@SuppressWarnings("unchecked")
 		T[] returnArray = (T[]) new Object[size()];
 		int index = 0;
 		SingleLinkedListNode<T> auxHead = head;
