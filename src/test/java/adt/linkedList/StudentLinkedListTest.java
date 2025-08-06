@@ -1,5 +1,7 @@
 package adt.linkedList;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,5 +74,23 @@ public class StudentLinkedListTest {
 	public void testToArray() {
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista1.toArray());
+	}
+
+	@Test
+	public void removeInexistente() {
+		lista1.remove(Integer.valueOf(6));
+		assertArrayEquals(new Integer[] {3, 2, 1}, lista1.toArray());
+	}
+
+	@Test
+	public void testRemoveExistente() {
+		lista1.remove(Integer.valueOf(3));
+		assertArrayEquals(new Integer[] {2, 1}, lista1.toArray());
+	}
+
+	@Test
+	public void testInsertNull() {
+		lista1.insert(null);
+		assertArrayEquals(new Integer[] {3, 2, 1}, lista1.toArray());
 	}
 }

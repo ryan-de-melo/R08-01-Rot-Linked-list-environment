@@ -1,5 +1,7 @@
 package adt.linkedList;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +9,8 @@ import org.junit.Test;
 public class RecursiveSingleLinkedListImplTest {
 	protected LinkedList<Integer> lista1;
 	protected LinkedList<Integer> lista2;
+	protected LinkedList<Integer> lista3;
+	protected LinkedList<Integer> listaVazia;
 
 	@Before
 	public void setUp() throws Exception {
@@ -24,6 +28,8 @@ public class RecursiveSingleLinkedListImplTest {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
 		lista1 = new RecursiveSingleLinkedListImpl<>();
 		lista2 = new RecursiveSingleLinkedListImpl<>();
+		lista3 = new RecursiveSingleLinkedListImpl<>();
+		listaVazia = new RecursiveSingleLinkedListImpl<>();
 	}
 
 	@Test
@@ -71,5 +77,17 @@ public class RecursiveSingleLinkedListImplTest {
 	public void testToArray() {
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista1.toArray());
+	}
+
+	@Test
+	public void testInsertElemNull() {
+		lista1.insert(null);
+		assertArrayEquals(new Integer[] {3, 2, 1}, lista1.toArray());
+	}
+
+	@Test
+	public void testRemoveEmpty() {
+		listaVazia.remove(Integer.valueOf(3));
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
 	}
 }

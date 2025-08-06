@@ -1,6 +1,8 @@
 package adt.linkedList;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -77,5 +79,48 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 	public void testInsertLastVazia() {
 		listaVazia.insertFirst(4);
 		assertArrayEquals(new Integer[] {4}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testInsertElemNull() {
+		listaVazia.insert(null);
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testInsertFirstElemNull() {
+		listaVazia.insertFirst(null);
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testSearchInexistente() {
+		assertNull(listaVazia.search(Integer.valueOf(4)));
+	}
+
+	@Test
+	public void testSearchLastEncontraPrimeiro() {
+		assertEquals(Integer.valueOf(1), ((DoubleLinkedListImpl<Integer>) lista1).search(Integer.valueOf(1)));
+
+	}
+
+	@Test
+	public void testRemoveLastVazia02() {
+		listaVazia.removeLast();
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testRemoveLastBasico() {
+		((DoubleLinkedListImpl<Integer>) lista1).insertFirst(Integer.valueOf(4));
+		assertArrayEquals(new Integer[] {4, 3, 2, 1}, lista1.toArray());
+		((DoubleLinkedListImpl<Integer>) lista1).removeLast();
+		assertArrayEquals(new Integer[] {4, 3, 2}, lista1.toArray());
+	}
+
+	@Test
+	public void testRemoveFirstListaVazia() {
+		listaVazia.removeFirst();
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
 	}
 }

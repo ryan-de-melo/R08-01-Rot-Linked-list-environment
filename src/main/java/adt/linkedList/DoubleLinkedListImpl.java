@@ -63,7 +63,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	@Override
 	public void removeLast() {
-		if (last != null && !last.isNIL()) {
+		if (!last.isNIL()) {
 			last = last.previous;
 
 			if (last.isNIL()) {
@@ -72,6 +72,27 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 				last.next = new DoubleLinkedListNode<>();
 			}
 		}
+	}
+
+	@Override
+	public T search(T element) {
+		T returnValue = null;
+
+		DoubleLinkedListNode<T> auxHead = (DoubleLinkedListNode<T>) head;
+		DoubleLinkedListNode<T> auxLast = last;
+
+		while (!auxHead.isNIL() && !auxLast.isNIL() && auxHead != auxLast && !auxHead.getData().equals(element) && !auxLast.getData().equals(element)) {
+			auxHead = (DoubleLinkedListNode<T>) auxHead.next;
+			auxLast = auxLast.previous;
+		}
+
+		if (!auxHead.isNIL() && auxHead.getData().equals(element)) {
+			returnValue = element;
+		} else if (!auxLast.isNIL() && auxLast.getData().equals(element)) {
+			returnValue = element;
+		}
+
+		return returnValue;
 	}
 
 	public DoubleLinkedListNode<T> getLast() {

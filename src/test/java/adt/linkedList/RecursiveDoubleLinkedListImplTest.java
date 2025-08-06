@@ -1,6 +1,8 @@
 package adt.linkedList;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -129,5 +131,49 @@ public class RecursiveDoubleLinkedListImplTest {
 	public void testInsertLastVazia() {
 		((RecursiveDoubleLinkedListImpl<Integer>)listaVazia).insertFirst(4);
 		assertArrayEquals(new Integer[] {4}, listaVazia.toArray());
+	}
+
+
+	@Test
+	public void testInsertElemNull() {
+		listaVazia.insert(null);
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testInsertFirstElemNull() {
+		((RecursiveDoubleLinkedListImpl<Integer>)listaVazia).insertFirst(null);
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testSearchInexistente() {
+		assertNull(listaVazia.search(Integer.valueOf(4)));
+	}
+
+	@Test
+	public void testSearchLastEncontraPrimeiro() {
+		assertEquals(Integer.valueOf(1), ((RecursiveDoubleLinkedListImpl<Integer>) lista1).search(Integer.valueOf(1)));
+
+	}
+
+	@Test
+	public void testRemoveLastVazia02() {
+		((RecursiveDoubleLinkedListImpl<Integer>) listaVazia).removeLast();
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
+	}
+
+	@Test
+	public void testRemoveLastBasico() {
+		((RecursiveDoubleLinkedListImpl<Integer>) lista1).insertFirst(Integer.valueOf(4));
+		assertArrayEquals(new Integer[] {4, 3, 2, 1}, lista1.toArray());
+		((RecursiveDoubleLinkedListImpl<Integer>) lista1).removeLast();
+		assertArrayEquals(new Integer[] {4, 3, 2}, lista1.toArray());
+	}
+
+	@Test
+	public void testRemoveFirstListaVazia() {
+		((RecursiveDoubleLinkedListImpl<Integer>) listaVazia).removeFirst();
+		assertArrayEquals(new Integer[] {}, listaVazia.toArray());
 	}
 }
